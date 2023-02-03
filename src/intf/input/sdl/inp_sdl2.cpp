@@ -313,17 +313,17 @@ static int SDLinpJoystickInit(int i)
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_START  );
 		buttons[i][7] = bind.value.button;
 
-		//bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_UP  );
-		//buttons[i][8] = bind.value.button;
+		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_UP  );
+		buttons[i][8] = bind.value.button;
 
-		//bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN  );
-		//buttons[i][9] = bind.value.button;
+		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN  );
+		buttons[i][9] = bind.value.button;
 
-		//bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT  );
-		//buttons[i][10] = bind.value.button;
+		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT  );
+		buttons[i][10] = bind.value.button;
 
-		//bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT  );
-		//buttons[i][11] = bind.value.button;
+		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT  );
+		buttons[i][11] = bind.value.button;
 
    }
 
@@ -582,16 +582,16 @@ static int JoystickState(int i, int nSubCode)
 		int dpad;
 		switch (nSubCode & 3) {
 		case 0:	// Left
-			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT);
+			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT & 0x7F);
 			break;
 		case 1:												// Right
-			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
+			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT & 0x7F);
 			break;
 		case 2:												// Up
-			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_UP);
+			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_UP & 0x7F);
 			break;
 		case 3:												// Down
-			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN);
+			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN & 0x7F);
 			break;
 		}
 		if (dpad) return dpad;
