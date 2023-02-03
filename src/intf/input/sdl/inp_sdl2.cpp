@@ -313,18 +313,21 @@ static int SDLinpJoystickInit(int i)
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_START  );
 		buttons[i][7] = bind.value.button;
 
-		/*bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_UP  );
+		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_UP  );
 		buttons[i][8] = bind.value.button;
+		LOG(("FBNEO - bind.value.button: %d\n", bind.value.button));
 
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN  );
 		buttons[i][9] = bind.value.button;
+		LOG(("FBNEO - bind.value.button: %d\n", bind.value.button));
 
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT  );
 		buttons[i][10] = bind.value.button;
+		LOG(("FBNEO - bind.value.button: %d\n", bind.value.button));
 
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT  );
-		buttons[i][11] = bind.value.button;*/
-
+		buttons[i][11] = bind.value.button;
+		LOG(("FBNEO - bind.value.button: %d\n", bind.value.button));
    }
 
 	return 0;
@@ -579,6 +582,7 @@ static int JoystickState(int i, int nSubCode)
 	}
 	
 	if (nSubCode < 0x20) {										// POV hat controls
+		
 		int dpad_code = 0;
 		switch (nSubCode & 3) {
 			case 0:												// Left
@@ -594,7 +598,7 @@ static int JoystickState(int i, int nSubCode)
 				dpad_code = 12;
 				break;
 		}
-		int dpad = SDL_JoystickGetButton(JoyList[i], dpad_code & 0x80);
+		int dpad = SDL_JoystickGetButton(JoyList[i], dpad_code & 0x7F);
 		if (dpad) 
 			return dpad;
 
@@ -620,6 +624,7 @@ static int JoystickState(int i, int nSubCode)
 		return 0;
 	}
 	if (nSubCode < 0x80 + SDL_JoystickNumButtons(JoyList[i])) {	// Joystick buttons
+		LOG(("FBNEO - SubCode: %d\n", nSubCode));
 		return SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F);
 	}
 
