@@ -1,7 +1,19 @@
 // Module for input using SDL
 #include <SDL.h>
+#include <string.h>
+#include <stdio.h>
+#include <stddef.h>
 
 #include "burner.h"
+
+#define VERBOSE 1
+
+#if VERBOSE
+#define LOG(x)	logerror x
+#else
+#define LOG(x)
+#endif
+
 
 #define JOYSTICK_DEAD_ZONE 8000		// Replace DEADZONE to make it coherent with other declarations
 #define MAX_JOYSTICKS 8
