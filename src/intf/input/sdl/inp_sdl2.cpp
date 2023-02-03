@@ -1,9 +1,8 @@
 // Module for input using SDL
 #include <SDL.h>
-#include <string.h>
-#include <stdio.h>
-#include <stddef.h>
 
+#include "burn.h"
+#include "burnint.h"
 #include "burner.h"
 
 #define VERBOSE 1
