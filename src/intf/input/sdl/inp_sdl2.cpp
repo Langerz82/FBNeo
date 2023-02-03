@@ -600,7 +600,6 @@ static int JoystickState(int i, int nSubCode)
 			return 0;
 		}
 
-		int dpad;
 		switch (nSubCode & 3) {
 		case 0:	// Left
 			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_LEFT;
