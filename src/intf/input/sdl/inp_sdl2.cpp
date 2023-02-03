@@ -1,12 +1,25 @@
 // Module for input using SDL
 #include <SDL.h>
 
-#include "burn.h"
-#include "burnint.h"
 #include "burner.h"
 
 #define VERBOSE 1
-#define FBNEO_DEBUG 1
+
+void logerror(char* szFormat, ...)
+{
+	static char szLogMessage[1024];
+
+	va_list vaFormat;
+	va_start(vaFormat, szFormat);
+
+	_vsnprintf(szLogMessage, 1024, szFormat, vaFormat);
+
+	va_end(vaFormat);
+
+	bprintf(PRINT_ERROR, _T("%hs"), szLogMessage);
+
+	return;
+}
 
 #if VERBOSE
 #define LOG(x)	logerror x
