@@ -6,6 +6,7 @@
 #include "burner.h"
 
 #define VERBOSE 1
+#define FBNEO_DEBUG 1
 
 #if VERBOSE
 #define LOG(x)	logerror x
