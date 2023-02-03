@@ -579,38 +579,34 @@ static int JoystickState(int i, int nSubCode)
 	}
 	
 	if (nSubCode < 0x20) {										// POV hat controls
-		if (SDL_JoystickNumButtons(JoyList[i])) {	// Joystick buttons
-			return SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F);
-		}
-
 		if (SDL_JoystickNumHats(JoyList[i]) <= ((nSubCode & 0x0F) >> 2)) {
 			return 0;
 		}
 
-		int getHat = SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2);
-		int res;
+		int dpad;
 		switch (nSubCode & 3) {
-			case 0:												// Left
-				res = getHat & SDL_HAT_LEFT;
-			 	if (res != 0 || SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F)& SDL_CONTROLLER_BUTTON_DPAD_LEFT)
-			 	 return res;
-				break;
-			case 1:												// Right
-				res = getHat & SDL_HAT_RIGHT;
-				if (res != 0 || SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F)& SDL_CONTROLLER_BUTTON_DPAD_RIGHT)
-				 return res;
-				break;
-			case 2:												// Up
-				res = getHat & SDL_HAT_UP;
-				if (res != 0 || SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F)& SDL_CONTROLLER_BUTTON_DPAD_UP)
-				 return res;
-				break;
-			case 3:												// Down
-				res = getHat & SDL_HAT_DOWN;
-				if (res != 0 || SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F)& SDL_CONTROLLER_BUTTON_DPAD_DOWN)
-				 return res;
-				break;
+		case 0:	// Left
+			dpad = SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F) & SDL_CONTROLLER_BUTTON_DPAD_LEFT;
+			if (dpad) return dpad;
+
+			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_LEFT;
+		case 1:												// Right
+			dpad = SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F) & SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
+			if (dpad) return dpad;
+
+			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_RIGHT;
+		case 2:												// Up
+			dpad = SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F) & SDL_CONTROLLER_BUTTON_DPAD_UP;
+			if (dpad) return dpad;
+
+			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_UP;
+		case 3:												// Down
+			dpad = SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F) & SDL_CONTROLLER_BUTTON_DPAD_DOWN;
+			if (dpad) return dpad;
+
+			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_DOWN;
 		}
+
 		return 0;
 	}
 	if (nSubCode < 0x80) {										// Undefined
