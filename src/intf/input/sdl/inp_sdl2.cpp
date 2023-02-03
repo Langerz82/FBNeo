@@ -313,17 +313,17 @@ static int SDLinpJoystickInit(int i)
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_START  );
 		buttons[i][7] = bind.value.button;
 
-		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_UP  );
-		buttons[i][8] = bind.value.button;
+		//bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_UP  );
+		//buttons[i][8] = bind.value.button;
 
-		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN  );
-		buttons[i][9] = bind.value.button;
+		//bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN  );
+		//buttons[i][9] = bind.value.button;
 
-		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT  );
-		buttons[i][10] = bind.value.button;
+		//bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT  );
+		//buttons[i][10] = bind.value.button;
 
-		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT  );
-		buttons[i][11] = bind.value.button;
+		//bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT  );
+		//buttons[i][11] = bind.value.button;
 
    }
 
@@ -579,6 +579,23 @@ static int JoystickState(int i, int nSubCode)
 	}
 	
 	if (nSubCode < 0x20) {										// POV hat controls
+		int dpad;
+		switch (nSubCode & 3) {
+		case 0:	// Left
+			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT);
+			break;
+		case 1:												// Right
+			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
+			break;
+		case 2:												// Up
+			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_UP);
+			break;
+		case 3:												// Down
+			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN);
+			break;
+		}
+		if (dpad) return dpad;
+
 		if (SDL_JoystickNumHats(JoyList[i]) <= ((nSubCode & 0x0F) >> 2)) {
 			return 0;
 		}
@@ -586,24 +603,12 @@ static int JoystickState(int i, int nSubCode)
 		int dpad;
 		switch (nSubCode & 3) {
 		case 0:	// Left
-			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT);
-			if (dpad) return dpad;
-
 			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_LEFT;
 		case 1:												// Right
-			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT);
-			if (dpad) return dpad;
-
 			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_RIGHT;
 		case 2:												// Up
-			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_UP);
-			if (dpad) return dpad;
-
 			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_UP;
 		case 3:												// Down
-			dpad = SDL_JoystickGetButton(JoyList[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN);
-			if (dpad) return dpad;
-
 			return SDL_JoystickGetHat(JoyList[i], (nSubCode & 0x0F) >> 2)& SDL_HAT_DOWN;
 		}
 
