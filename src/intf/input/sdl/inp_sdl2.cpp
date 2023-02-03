@@ -577,7 +577,12 @@ static int JoystickState(int i, int nSubCode)
 		case 0x0F: return SDL_JoystickGetAxis(JoyList[i], 7) > JOYSTICK_DEAD_ZONE;
 		}
 	}
+	
 	if (nSubCode < 0x20) {										// POV hat controls
+		if (SDL_JoystickNumButtons(JoyList[i])) {	// Joystick buttons
+			return SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F);
+		}
+
 		if (SDL_JoystickNumHats(JoyList[i]) <= ((nSubCode & 0x0F) >> 2)) {
 			return 0;
 		}
