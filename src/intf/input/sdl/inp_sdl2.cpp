@@ -314,7 +314,7 @@ static int SDLinpJoystickInit(int i)
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_START  );
 		buttons[i][7] = bind.value.button;
 
-		/*bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_UP  );
+		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_UP  );
 		buttons[i][8] = bind.value.button;
 		printf("FBNEO - bind.value.button: %d\n", bind.value.button);
 
@@ -328,7 +328,7 @@ static int SDLinpJoystickInit(int i)
 
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT  );
 		buttons[i][11] = bind.value.button;
-		printf("FBNEO - bind.value.button: %d\n", bind.value.button);*/
+		printf("FBNEO - bind.value.button: %d\n", bind.value.button);
    }
 
 	return 0;
@@ -557,7 +557,7 @@ static int JoystickState(int i, int nSubCode)
 
 	if (nSubCode < 0x10) {										// Joystick directions
 
-		//printf("POV HAT %d\n", nSubCode);
+		printf("POV HAT %d\n", nSubCode);
 		int dpad_code = 0;
 		switch (nSubCode & 3) {
 			case 0:												// Left
@@ -573,7 +573,7 @@ static int JoystickState(int i, int nSubCode)
 				dpad_code = SDL_CONTROLLER_BUTTON_DPAD_DOWN;
 				break;
 		}
-		//printf("DPAD %d\n", (dpad_code));
+		printf("DPAD %d\n", (dpad_code));
 		int dpad = SDL_JoystickGetButton(JoyList[i], dpad_code);
 		if (dpad) 
 			return dpad;
