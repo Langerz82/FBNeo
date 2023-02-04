@@ -583,26 +583,26 @@ static int JoystickState(int i, int nSubCode)
 	}
 	
 	if (nSubCode < 0x20) {										// POV hat controls
-		
+		printf("POV HAT %d\n", nSubCode)
 		int dpad_code = 0;
 		switch (nSubCode & 3) {
 			case 0:												// Left
-				dpad_code = 13;
+				dpad_code = 1;
 				break;
 			case 1:												// Right
-				dpad_code = 14;
+				dpad_code = 0;
 				break;
 			case 2:												// Up
-				dpad_code = 11;
+				dpad_code = 6;
 				break;
 			case 3:												// Down
-				dpad_code = 12;
+				dpad_code = 7;
 				break;
 		}
-		int dpad = SDL_JoystickGetButton(JoyList[i], dpad_code & 0x7F);
+		printf("DPAD %d\n", (dpad_code & 0x80));
+		int dpad = SDL_JoystickGetButton(JoyList[i], dpad_code & 0x80);
 		if (dpad) 
 			return dpad;
-
 
 		if (SDL_JoystickNumHats(JoyList[i]) <= ((nSubCode & 0x0F) >> 2)) {
 			return 0;
