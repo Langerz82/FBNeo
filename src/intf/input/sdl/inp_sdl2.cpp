@@ -583,7 +583,7 @@ static int JoystickState(int i, int nSubCode)
 	}
 	
 	if (nSubCode < 0x20) {										// POV hat controls
-		printf("POV HAT %d\n", nSubCode)
+		printf("POV HAT %d\n", nSubCode);
 		int dpad_code = 0;
 		switch (nSubCode & 3) {
 			case 0:												// Left
