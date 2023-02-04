@@ -626,7 +626,11 @@ static int JoystickState(int i, int nSubCode)
 		return 0;
 	}
 	if (nSubCode < 0x80 + SDL_JoystickNumButtons(JoyList[i])) {	// Joystick buttons
-		printf("FBNEO - SubCode: %d\n", nSubCode);
+		//printf("FBNEO - SubCode: %d\n", nSubCode);
+		for(unsigned int j=0; j < 256; ++j) {
+			int tmp = SDL_JoystickGetButton(JoyList[i], j);
+			if (tmp) printf("BUTTON %d %d\n", j, tmp);
+		}		
 		return SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F);
 	}
 
