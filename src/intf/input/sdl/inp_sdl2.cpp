@@ -3,12 +3,6 @@
 
 #include "burner.h"
 
-#if VERBOSE
-#define LOG(x)	logerror x
-#else
-#define LOG(x)
-#endif
-
 
 #define JOYSTICK_DEAD_ZONE 8000		// Replace DEADZONE to make it coherent with other declarations
 #define MAX_JOYSTICKS 8
@@ -322,19 +316,19 @@ static int SDLinpJoystickInit(int i)
 
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_UP  );
 		buttons[i][8] = bind.value.button;
-		sprintf("FBNEO - bind.value.button: %d\n", bind.value.button);
+		printf("FBNEO - bind.value.button: %d\n", bind.value.button);
 
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_DOWN  );
 		buttons[i][9] = bind.value.button;
-		sprintf("FBNEO - bind.value.button: %d\n", bind.value.button);
+		printf("FBNEO - bind.value.button: %d\n", bind.value.button);
 
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_LEFT  );
 		buttons[i][10] = bind.value.button;
-		sprintf("FBNEO - bind.value.button: %d\n", bind.value.button);
+		printf("FBNEO - bind.value.button: %d\n", bind.value.button);
 
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT  );
 		buttons[i][11] = bind.value.button;
-		sprintf("FBNEO - bind.value.button: %d\n", bind.value.button);
+		printf("FBNEO - bind.value.button: %d\n", bind.value.button);
    }
 
 	return 0;
@@ -631,7 +625,7 @@ static int JoystickState(int i, int nSubCode)
 		return 0;
 	}
 	if (nSubCode < 0x80 + SDL_JoystickNumButtons(JoyList[i])) {	// Joystick buttons
-		sprintf("FBNEO - SubCode: %d\n", nSubCode);
+		printf("FBNEO - SubCode: %d\n", nSubCode);
 		return SDL_JoystickGetButton(JoyList[i], nSubCode & 0x7F);
 	}
 
