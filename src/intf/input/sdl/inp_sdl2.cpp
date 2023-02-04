@@ -314,7 +314,7 @@ static int SDLinpJoystickInit(int i)
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_START  );
 		buttons[i][7] = bind.value.button;
 
-		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_UP  );
+		/*bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_UP  );
 		buttons[i][8] = bind.value.button;
 		printf("FBNEO - bind.value.button: %d\n", bind.value.button);
 
@@ -328,7 +328,7 @@ static int SDLinpJoystickInit(int i)
 
 		bind = SDL_GameControllerGetBindForButton(GCList[i], SDL_CONTROLLER_BUTTON_DPAD_RIGHT  );
 		buttons[i][11] = bind.value.button;
-		printf("FBNEO - bind.value.button: %d\n", bind.value.button);
+		printf("FBNEO - bind.value.button: %d\n", bind.value.button);*/
    }
 
 	return 0;
