@@ -575,6 +575,9 @@ static int JoystickState(int i, int nSubCode)
 		}
 		printf("DPAD %d\n", (dpad_code));
 		int dpad = SDL_JoystickGetButton(JoyList[i], dpad_code);
+		for(var j=0; j < 128; ++j)
+			printf("BUTTON %d %d\n", j, SDL_JoystickGetButton(JoyList[i], j));
+
 		if (dpad) 
 			return dpad;
 
