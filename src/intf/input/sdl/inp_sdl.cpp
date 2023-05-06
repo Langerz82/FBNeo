@@ -371,7 +371,7 @@ int SDLinpFind(bool CreateBaseline)
 
 		for (j = 0x10; j < 0x20; j++) {						// POV hats
 			if (JoystickState(i, j)) {
-				nRetVal = 0x4000 | (i << 8) | j;
+				nRetVal = 0x4000 | (i << 8) | j - 0x10;
 				goto End;
 			}
 		}
