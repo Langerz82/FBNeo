@@ -15,7 +15,10 @@ static SDL_Joystick* JoyList[MAX_JOYSTICKS];
 static SDL_GameController *GCList[MAX_JOYSTICKS];
 static int* JoyPrevAxes = NULL;
 /* static */ int nJoystickCount = 0;						// Number of joysticks connected to this machine
-int buttons [4][8]= { {-1,-1,-1,-1,-1,-1,-1,-1}, {-1,-1,-1,-1,-1,-1,-1,-1}, {-1,-1,-1,-1,-1,-1,-1,-1}, {-1,-1,-1,-1,-1,-1,-1,-1} }; // 4 joysticks buttons 0 -5 and start / select
+int buttons [4][12]= { {-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+	{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+	{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1},
+	{-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1} }; // 4 joysticks buttons 0 -5 and start / select
 
 void setup_kemaps(void)
 {
@@ -556,32 +559,6 @@ static int JoystickState(int i, int nSubCode)
 	}
 
 	if (nSubCode < 0x10) {										// Joystick directions
-
-		//printf("nSubCode %d\n", nSubCode);
-		int dpad_code = 0;
-		switch (nSubCode) {
-			case 0:												// Left
-				dpad_code = SDL_CONTROLLER_BUTTON_DPAD_LEFT;
-				break;
-			case 1:												// Right
-				dpad_code = SDL_CONTROLLER_BUTTON_DPAD_RIGHT;
-				break;
-			case 2:												// Up
-				dpad_code = SDL_CONTROLLER_BUTTON_DPAD_UP;
-				break;
-			case 3:												// Down
-				dpad_code = SDL_CONTROLLER_BUTTON_DPAD_DOWN;
-				break;
-		}
-		//printf("DPAD %d\n", (dpad_code));
-		int dpad = SDL_JoystickGetButton(JoyList[i], dpad_code & 0xFF);
-		for(unsigned int j=0; j < 256; ++j) {
-			int tmp = SDL_JoystickGetButton(JoyList[i], j);
-			if (tmp) printf("BUTTON %d %d\n", j, tmp);
-		}
-
-		if (dpad) 
-			return dpad;
 
 		// we have two checks per axis
 		if (SDL_JoystickNumAxes(JoyList[i])*2 <= nSubCode) {
